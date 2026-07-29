@@ -269,7 +269,16 @@ onclick="generateWorksheet()">
 Generate Worksheet
 
 </button>
+if(student==""){
+alert("Please enter Student Name");
+return;
+}
 
+if(school==""){
+alert("Please enter School Name");
+return;
+}
+Division ને વધુ સારું બનાવવા
 </div>
 
 </div>
@@ -374,11 +383,11 @@ if(a<b){
 
 if(op=="/"){
 
-let ans=randomNumber(1);
+b=randomNumber(digit);
 
-b=randomNumber(1);
+let ans=randomNumber(digit);
 
-a=ans*b;
+a=b*ans;
 
 }
 
@@ -487,6 +496,6 @@ d.getFullYear()+"-"+m+"-"+day;
 }
 
 </script>
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </body>
 </html>
