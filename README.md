@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Math Worksheet Generator</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#4f46e5,#7c3aed);
+min-height:100vh;
+padding:20px;
+}
+
+.container{
+max-width:1200px;
+margin:auto;
+}
+
+.card{
+border:none;
+border-radius:18px;
+overflow:hidden;
+box-shadow:0 15px 35px rgba(0,0,0,.2);
+}
+
+.header{
+background:#4338ca;
+color:white;
+padding:25px;
+text-align:center;
+}
+
+.header h1{
+font-size:34px;
+margin-bottom:5px;
+}
+
+.header p{
+opacity:.9;
+}
+
+.section{
+padding:25px;
+}
+
+label{
+font-weight:bold;
+margin-bottom:5px;
+}
+
+.btn-main{
+background:#4f46e5;
+color:white;
+}
+
+.btn-main:hover{
+background:#3730a3;
+color:white;
+}
+
+#worksheet{
+display:none;
+margin-top:25px;
+}
+
+.question{
+font-size:24px;
+padding:12px;
+border-bottom:1px dashed #bbb;
+}
+
+.answer{
+display:inline-block;
+width:150px;
+border-bottom:2px solid #000;
+margin-left:15px;
+}
+
+footer{
+margin-top:30px;
+text-align:center;
+color:white;
+font-weight:bold;
+}
+
+@media print{
+
+#controlPanel{
+display:none;
+}
+
+body{
+background:white;
+}
+
+footer{
+display:none;
+}
+
+.card{
+box-shadow:none;
+}
+
+#worksheet{
+display:block !important;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<div class="header">
+
+<h1>📘 Math Worksheet Generator</h1>
+
+<p>Create Unlimited Printable Worksheets</p>
+
+</div>
+
+<div class="section" id="controlPanel">
+
+<div class="row">
+
+<div class="col-md-6">
+
+<label>Student Name</label>
+
+<input
+type="text"
+id="student"
+class="form-control"
+placeholder="Enter Student Name">
+
+</div>
+
+<div class="col-md-6">
+
+<label>School Name</label>
+
+<input
+type="text"
+id="school"
+class="form-control"
+placeholder="Enter School Name">
+
+</div>
+
+</div>
+
+<br>
+
+<div class="row">
+
+<div class="col-md-4">
+
+<label>Teacher</label>
+
+<input
+type="text"
+id="teacher"
+class="form-control">
+
+</div>
+
+<div class="col-md-4">
+
+<label>Date</label>
+
+<input
+type="date"
+id="date"
+class="form-control">
+
+</div>
+
+<div class="col-md-4">
+
+<label>Total Marks</label>
+
+<input
+type="number"
+id="marks"
+class="form-control"
+value="20">
+
+</div>
+
+</div>
+
+<br>
+
+<div class="row">
+
+<div class="col-md-3">
+
+<label>Questions</label>
+
+<input
+type="number"
+id="count"
+class="form-control"
+value="20">
+
+</div>
+
+<div class="col-md-3">
+
+<label>Digits</label>
+
+<select
+id="digit"
+class="form-select">
+
+<option value="1">1 Digit</option>
+<option value="2">2 Digit</option>
+<option value="3">3 Digit</option>
+<option value="4">4 Digit</option>
+
+</select>
+
+</div>
+
+<div class="col-md-3">
+
+<label>Operation</label>
+
+<select
+id="operation"
+class="form-select">
+
+<option value="+">Addition</option>
+<option value="-">Subtraction</option>
+<option value="*">Multiplication</option>
+<option value="/">Division</option>
+<option value="mixed">Mixed</option>
+
+</select>
+
+</div>
+
+<div class="col-md-3 d-grid">
+
+<label>&nbsp;</label>
+
+<button
+class="btn btn-main"
+onclick="generateWorksheet()">
+
+Generate Worksheet
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<div
+class="section"
+id="worksheet">
+
+</div>
+
+</div>
+
+<footer>
+
+Made with ❤️ by Piyush
+
+</footer>
+
+<script>
+
+function randomNumber(digit){
+
+let min=(digit==1)?1:Math.pow(10,digit-1);
+let max=Math.pow(10,digit)-1;
+
+return Math.floor(Math.random()*(max-min+1))+min;
+
+}
+
+let answerKey=[];
+
+function generateWorksheet(){
+
+answerKey=[];
+
+let student=document.getElementById("student").value;
+let school=document.getElementById("school").value;
+let teacher=document.getElementById("teacher").value;
+let date=document.getElementById("date").value;
+let marks=document.getElementById("marks").value;
+
+let count=parseInt(document.getElementById("count").value);
+let digit=parseInt(document.getElementById("digit").value);
+let operation=document.getElementById("operation").value;
+
+let worksheet=document.getElementById("worksheet");
+
+worksheet.style.display="block";
+
+worksheet.innerHTML=`
+
+<h2 align="center">${school}</h2>
+
+<h3 align="center">Math Worksheet</h3>
+
+<hr>
+
+<b>Student :</b> ${student}
+
+<br>
+
+<b>Teacher :</b> ${teacher}
+
+<br>
+
+<b>Date :</b> ${date}
+
+<br>
+
+<b>Total Marks :</b> ${marks}
+
+<hr>
+
+`;
+
+const ops=["+","-","*","/"];
+
+for(let i=1;i<=count;i++){
+
+let op=operation;
+
+if(operation=="mixed"){
+
+op=ops[Math.floor(Math.random()*ops.length)];
+
+}
+
+let a=randomNumber(digit);
+let b=randomNumber(digit);
+
+if(op=="-"){
+
+if(a<b){
+
+[a,b]=[b,a];
+
+}
+
+}
+
+if(op=="/"){
+
+let ans=randomNumber(1);
+
+b=randomNumber(1);
+
+a=ans*b;
+
+}
+
+let answer;
+
+switch(op){
+
+case "+":
+answer=a+b;
+break;
+
+case "-":
+answer=a-b;
+break;
+
+case "*":
+answer=a*b;
+break;
+
+case "/":
+answer=a/b;
+break;
+
+}
+
+answerKey.push(answer);
+
+worksheet.innerHTML+=`
+
+<div class="question">
+
+${i}.
+
+&nbsp;
+
+${a}
+
+&nbsp;
+
+${op}
+
+&nbsp;
+
+${b}
+
+&nbsp;=&nbsp;
+
+<span class="answer"></span>
+
+</div>
+
+`;
+
+}
+
+worksheet.innerHTML+=`
+
+<br>
+
+<button
+class="btn btn-success"
+onclick="showAnswers()">
+
+📘 Answer Key
+
+</button>
+
+<button
+class="btn btn-primary ms-2"
+onclick="window.print()">
+
+🖨 Print
+
+</button>
+
+`;
+
+}
+
+function showAnswers(){
+
+let win=window.open("");
+
+win.document.write("<h1>Answer Key</h1><hr>");
+
+for(let i=0;i<answerKey.length;i++){
+
+win.document.write((i+1)+". "+answerKey[i]+"<br>");
+
+}
+
+}
+
+window.onload=function(){
+
+let d=new Date();
+
+let m=(d.getMonth()+1).toString().padStart(2,"0");
+
+let day=d.getDate().toString().padStart(2,"0");
+
+document.getElementById("date").value=
+
+d.getFullYear()+"-"+m+"-"+day;
+
+}
+
+</script>
+
+</body>
+</html>
